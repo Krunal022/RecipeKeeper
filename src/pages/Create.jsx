@@ -4,16 +4,20 @@ import { useForm } from "react-hook-form";
 import { recipecontext } from "../context/RecipeContext";
 
 const Create = () => {
-  const {data, setdata} = useContext(recipecontext);
+  const { data, setdata } = useContext(recipecontext);
+  
+  console.log(data);
   const { register, handleSubmit, reset } = useForm();
 
   const submitHandler = (recipe) => {
     recipe.id = nanoid();
     console.log(recipe);
 
-    const copydata = [...data];
-    copydata.push(recipe);
-    setdata(copydata);
+    // const copydata = [...data];
+    // copydata.push(recipe);
+    // setdata(copydata);
+    setdata([...data, recipe]);
+
     reset();
   };
   return (
