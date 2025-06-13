@@ -5,8 +5,7 @@ import { recipecontext } from "../context/RecipeContext";
 
 const Create = () => {
   const { data, setdata } = useContext(recipecontext);
-  
-  console.log(data);
+  // console.log(data);
   const { register, handleSubmit, reset } = useForm();
 
   const submitHandler = (recipe) => {
