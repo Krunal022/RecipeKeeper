@@ -1,9 +1,15 @@
-import React from 'react'
+import { createContext, useState } from "react";
 
-const RecipeContext = () => {
+export const recipecontext = createContext(null);
+
+const RecipeContext = (props) => {
+  const [data, setdata] = useState([]);
+  console.log(data)
   return (
-    <div>RecipeContext</div>
-  )
-}
+    <recipecontext.Provider value={{ data, setdata }}>
+      {props.children}
+    </recipecontext.Provider>
+  );
+};
 
-export default RecipeContext
+export default RecipeContext;
