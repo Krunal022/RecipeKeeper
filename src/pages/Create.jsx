@@ -42,20 +42,20 @@ const Create = () => {
           className="block mt-3 capitalize py-2 text-xl  pl-5 outline-0 rounded-full border-b text-black font-md "
         />
         <textarea
-          {...register("description")}
+          {...register("desc")}
           type="text"
           placeholder="Description..."
           className="w-70 block mt-3 capitalize py-2 pl-3 text-xl outline-0 rounded border text-black font-md "
         ></textarea>
         <textarea
-          {...register("ingredients")}
+          {...register("ingr")}
           type="text"
           placeholder="Write ingredients
 seperated by comma..."
           className="w-70 block mt-3 capitalize py-2 pl-3 text-xl outline-0 rounded border text-black font-md "
         ></textarea>
         <textarea
-          {...register("instructions")}
+          {...register("inst")}
           type="text"
           placeholder="Write instructions
 seperated by comma..."
@@ -63,15 +63,10 @@ seperated by comma..."
         ></textarea>
         {/* <label htmlFor="Catagory">Choose Catagory</label> */}
         <select {...register("category")} className="block text-2xl mt-3">
-          <option className="text-xl  p-2 " value="cat-1">
-            Catagory 1
-          </option>
-          <option className="text-xl  p-2 " value="cat-2">
-            Catagory 2
-          </option>
-          <option className="text-xl  p-2 " value="cat-3">
-            Catagory 3
-          </option>
+           <option value="breakfast">Breakfast</option>
+                <option className="text-xl p-2" value="lunch">Lunch</option>
+                <option className="text-xl p-2" value="supper">Supper</option>
+                <option className="text-xl p-2" value="dinner">Dinner</option>
         </select>{" "}
         <button className="mt-5 px-4 py-2 bg-emerald-400 text-xl text-black rounded-2xl active:scale-95 cursor-pointer">
           Save Recipe
