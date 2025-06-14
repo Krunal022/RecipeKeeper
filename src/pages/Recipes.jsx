@@ -9,7 +9,7 @@ const Recipes = () => {
   ));
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap p-10">
       {data.length > 0 ? renderRecipes : "No recipes found!"}
     </div>
   );

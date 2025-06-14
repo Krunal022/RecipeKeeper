@@ -2,22 +2,25 @@ import { nanoid } from "nanoid";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { recipecontext } from "../context/RecipeContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Create = () => {
   const { data, setdata } = useContext(recipecontext);
   // console.log(data);
+  const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm();
 
   const submitHandler = (recipe) => {
     recipe.id = nanoid();
     console.log(recipe);
-
     // const copydata = [...data];
     // copydata.push(recipe);
     // setdata(copydata);
     setdata([...data, recipe]);
-
+    toast.success("New recipe created!");
     reset();
+    navigate("/recipes");
   };
   return (
     <div className="text-black w-full min-h-screen p-10 text-4xl">
@@ -63,10 +66,16 @@ seperated by comma..."
         ></textarea>
         {/* <label htmlFor="Catagory">Choose Catagory</label> */}
         <select {...register("category")} className="block text-2xl mt-3">
-           <option value="breakfast">Breakfast</option>
-                <option className="text-xl p-2" value="lunch">Lunch</option>
-                <option className="text-xl p-2" value="supper">Supper</option>
-                <option className="text-xl p-2" value="dinner">Dinner</option>
+          <option value="breakfast">Breakfast</option>
+          <option className="text-xl p-2" value="lunch">
+            Lunch
+          </option>
+          <option className="text-xl p-2" value="supper">
+            Supper
+          </option>
+          <option className="text-xl p-2" value="dinner">
+            Dinner
+          </option>
         </select>{" "}
         <button className="mt-5 px-4 py-2 bg-emerald-400 text-xl text-black rounded-2xl active:scale-95 cursor-pointer">
           Save Recipe
