@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { recipecontext } from "../context/RecipeContext";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { Flip, toast } from "react-toastify";
 
 const Create = () => {
   const { data, setdata } = useContext(recipecontext);
@@ -18,7 +18,11 @@ const Create = () => {
     // copydata.push(recipe);
     // setdata(copydata);
     setdata([...data, recipe]);
-    toast.success("New recipe created!");
+    toast.success("New recipe created!", {
+      position: "top-right",
+      autoClose: 1000,
+      transition: Flip,
+    });
     reset();
     navigate("/recipes");
   };
