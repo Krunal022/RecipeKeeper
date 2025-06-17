@@ -54,33 +54,34 @@ const SingleRecipe = () => {
 
   // If recipe is found
   return recipe ? (
-    <div className="flex w-full">
+    <div className="flex flex-col md:flex-row w-full px-4 md:px-10 py-6 gap-6">
+      {/* Left Section - Recipe Details */}
       <div
         style={glassStyle}
-        className="left w-[45%] p-3 rounded-2xl mx-10 mt-10 border flex flex-col"
+        className="md:w-[45%] w-full p-4 md:p-6 rounded-2xl border flex flex-col"
       >
-        <h1 className="text-3xl capitalize font-semibold  text-black mb-3">
+        <h1 className="text-2xl md:text-3xl capitalize font-semibold text-black mb-3">
           {recipe.title}
         </h1>
 
         <img
-          className="h-[40vh] w-1/2 object-cover rounded-xl mb-4"
+          className="h-[200px] md:h-[40vh] w-full object-cover rounded-xl mb-4"
           src={recipe.image}
           alt={recipe.title}
         />
 
-        <h2 className="text-xl capitalize font-semibold text-blue-600">
+        <h2 className="text-lg md:text-xl capitalize font-semibold text-blue-600">
           Chef: {recipe.chef}
         </h2>
 
-        <h3 className="text-lg capitalize text-black">
+        <h3 className="text-md md:text-lg capitalize text-black">
           Category: {recipe.category}
         </h3>
 
-        <p className="my-4 text-md text-indigo-900">{recipe.desc}</p>
+        <p className="my-3 text-sm md:text-md text-indigo-900">{recipe.desc}</p>
 
         <div className="mb-4">
-          <h2 className="text-2xl text-green-700 font-semibold mb-1">
+          <h2 className="text-xl text-green-700 font-semibold mb-1">
             Ingredients:
           </h2>
           <ul className="list-disc list-inside text-sm">
@@ -93,7 +94,7 @@ const SingleRecipe = () => {
         </div>
 
         <div>
-          <h2 className="text-2xl text-green-700 font-semibold mb-1">
+          <h2 className="text-xl text-green-700 font-semibold mb-1">
             Instructions:
           </h2>
           <ol className="list-decimal list-inside text-sm">
@@ -105,80 +106,80 @@ const SingleRecipe = () => {
           </ol>
         </div>
       </div>
+
+      {/* Right Section - Form */}
       <form
-        className="right w-[50%] pt-10"
+        className="md:w-[50%] w-full pt-5 md:pt-10"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="text-3xl font-semibold text-black mb-5">
-          Update Recipe & Delete Recipe
+        <h1 className="text-2xl md:text-3xl font-semibold text-black mb-5">
+          Update / Delete Recipe
         </h1>
         <input
           {...register("image")}
           type="url"
-          placeholder="Drop Image URL."
-          className="block w-80 capitalize py-2 pl-5 text-xl mb-5 outline-0 rounded border-b text-black font-md "
+          placeholder="Drop Image URL"
+          className="w-full py-2 pl-5 text-base md:text-xl mb-4 rounded border text-black outline-0"
         />
         <input
           {...register("title")}
           type="text"
           placeholder="Recipe Title"
-          className="block w-80 capitalize py-2 pl-5 text-xl mb-5 outline-0 rounded-full border-b text-black font-md "
+          className="w-full py-2 pl-5 text-base md:text-xl mb-4 rounded border text-black outline-0"
         />
         <input
           {...register("chef")}
           type="text"
           placeholder="Chef Name"
-          className="block w-80 mt-3 capitalize py-2 text-xl mb-5 pl-5 outline-0 rounded-full border-b text-black font-md "
+          className="w-full py-2 pl-5 text-base md:text-xl mb-4 rounded border text-black outline-0"
         />
         <textarea
           {...register("desc")}
-          type="text"
           placeholder="Description..."
-          className="w-120 min-h-30 block mt-3 capitalize py-2 pl-3 text-lg outline-0 rounded border text-black font-md "
+          className="w-full min-h-[80px] py-2 pl-3 text-base rounded border text-black outline-0 mb-4"
         ></textarea>
         <textarea
           {...register("ingr")}
-          type="text"
-          placeholder="Write ingredients
-seperated by comma..."
-          className="w-120 min-h-30 block mt-3 capitalize py-2 pl-3 text-lg outline-0 rounded border text-black font-md "
+          placeholder="Ingredients (comma separated)..."
+          className="w-full min-h-[80px] py-2 pl-3 text-base rounded border text-black outline-0 mb-4"
         ></textarea>
         <textarea
           {...register("inst")}
-          type="text"
-          placeholder="Write instructions
-seperated by comma..."
-          className="w-120 min-h-40 block mt-3 capitalize py-2 pl-3 text-lg outline-0 rounded border text-black font-md  "
+          placeholder="Instructions (comma separated)..."
+          className="w-full min-h-[100px] py-2 pl-3 text-base rounded border text-black outline-0 mb-4"
         ></textarea>
-        {/* <label htmlFor="Catagory">Choose Catagory</label> */}
+
         <select
           {...register("category")}
-          className="block text-2xl mt-3 text-black"
+          className="w-full py-2 text-base text-black border rounded mb-4"
         >
           <option value="breakfast">Breakfast</option>
-          <option className="text-xl p-2" value="lunch">
-            Lunch
-          </option>
-          <option className="text-xl p-2" value="supper">
-            Supper
-          </option>
-          <option className="text-xl p-2" value="dinner">
-            Dinner
-          </option>
-        </select>{" "}
-        <button className="mt-5 mr-5 px-4 border py-2 bg-emerald-400 text-xl text-black rounded-2xl active:scale-95 cursor-pointer">
-          Update Recipe
-        </button>
-        <button
-          onClick={DeleteHandler}
-          className="mt-5 px-4 py-2 border bg-red-400 text-xl text-black rounded-2xl active:scale-95 cursor-pointer"
-        >
-          Delete Recipe
-        </button>
+          <option value="lunch">Lunch</option>
+          <option value="supper">Supper</option>
+          <option value="dinner">Dinner</option>
+        </select>
+
+        <div className="flex flex-col sm:flex-row gap-4 mt-4">
+          <button
+            type="submit"
+            className="px-4 py-2 bg-emerald-400 text-black text-base rounded-2xl active:scale-95"
+          >
+            Update Recipe
+          </button>
+          <button
+            type="button"
+            onClick={DeleteHandler}
+            className="px-4 py-2 bg-red-400 text-black text-base rounded-2xl active:scale-95"
+          >
+            Delete Recipe
+          </button>
+        </div>
       </form>
     </div>
   ) : (
-    <div>No recipe found!</div>
+    <div className="text-center mt-10 text-red-500 text-xl">
+      No recipe found!
+    </div>
   );
 };
 
