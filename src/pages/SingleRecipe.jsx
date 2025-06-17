@@ -162,14 +162,14 @@ const SingleRecipe = () => {
         <div className="flex flex-col sm:flex-row gap-4 mt-4">
           <button
             type="submit"
-            className="px-4 py-2 bg-emerald-400 text-black text-base rounded-2xl active:scale-95"
+            className="px-4 py-2 bg-emerald-400 border cursor-pointer text-black text-base rounded-2xl active:scale-95"
           >
             Update Recipe
           </button>
           <button
             type="button"
             onClick={DeleteHandler}
-            className="px-4 py-2 bg-red-400 text-black text-base rounded-2xl active:scale-95"
+            className="px-4 py-2 bg-red-400 border cursor-pointer text-black text-base rounded-2xl active:scale-95"
           >
             Delete Recipe
           </button>
