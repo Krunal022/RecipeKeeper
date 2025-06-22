@@ -7,84 +7,91 @@ import { Flip, toast } from "react-toastify";
 
 const Create = () => {
   const { data, setdata } = useContext(recipecontext);
-  // console.log(data);
   const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm();
 
-  const submitHandler = (recipe) => {
-    recipe.id = nanoid();
-    console.log(recipe);
-    // const copydata = [...data];
-    // copydata.push(recipe);
-    // setdata(copydata);
-    setdata([...data, recipe]);
-    toast.success("New recipe created!", {
-      position: "top-right",
-      autoClose: 1000,
-      transition: Flip,
-    });
-    reset();
-    navigate("/recipes");
+ const submitHandler = (recipe) => {
+  recipe.id = nanoid();
+
+  // Map form fields to correct object structure
+  const newRecipe = {
+    id: recipe.id,
+    title: recipe.title,
+    chef: recipe.chef,
+    desc: recipe.desc,
+    image: recipe.image,
+    ingredients: recipe.ingr, // map ingr -> ingredients
+    instructions: recipe.inst, // map inst -> instructions
+    category: recipe.category,
   };
+
+  setdata([...data, newRecipe]);
+
+  toast.success("New recipe created!", {
+    position: "top-right",
+    autoClose: 1000,
+    transition: Flip,
+  });
+
+  reset();
+  navigate("/recipes");
+};
+
+
   return (
-    <div className="text-black w-full min-h-screen p-10 text-4xl">
-      <h1 className="mb-10">🥄 Mix It Up — Create a Recipe!</h1>
-      <form onSubmit={handleSubmit(submitHandler)}>
-        <input
-          {...register("image")}
-          type="url"
-          placeholder="Drop Image URL."
-          className="block capitalize py-2 pl-5 text-xl  outline-0 rounded border-b text-black font-md "
-        />
-        <input
-          {...register("title")}
-          type="text"
-          placeholder="Recipe Title"
-          className="block capitalize py-2 pl-5 text-xl  outline-0 rounded-full border-b text-black font-md "
-        />
-        <input
-          {...register("chef")}
-          type="text"
-          placeholder="Chef Name"
-          className="block mt-3 capitalize py-2 text-xl  pl-5 outline-0 rounded-full border-b text-black font-md "
-        />
-        <textarea
-          {...register("desc")}
-          type="text"
-          placeholder="Description..."
-          className="w-70 block mt-3 capitalize py-2 pl-3 text-xl outline-0 rounded border text-black font-md "
-        ></textarea>
-        <textarea
-          {...register("ingr")}
-          type="text"
-          placeholder="Write ingredients
-seperated by comma..."
-          className="w-70 block mt-3 capitalize py-2 pl-3 text-xl outline-0 rounded border text-black font-md "
-        ></textarea>
-        <textarea
-          {...register("inst")}
-          type="text"
-          placeholder="Write instructions
-seperated by comma..."
-          className="w-70 block mt-3 capitalize py-2 pl-3 text-xl outline-0 rounded border text-black font-md "
-        ></textarea>
-        {/* <label htmlFor="Catagory">Choose Catagory</label> */}
-        <select {...register("category")} className="block text-2xl mt-3">
-          <option value="breakfast">Breakfast</option>
-          <option className="text-xl p-2" value="lunch">
-            Lunch
-          </option>
-          <option className="text-xl p-2" value="supper">
-            Supper
-          </option>
-          <option className="text-xl p-2" value="dinner">
-            Dinner
-          </option>
-        </select>{" "}
-        <button className="mt-5 px-4 py-2 bg-emerald-400 text-xl text-black rounded-2xl active:scale-95 cursor-pointer">
-          Save Recipe
-        </button>
-      </form>
+    <div className="text-black w-full min-h-screen p-4 sm:p-6 md:p-10 flex justify-center items-start">
+      <div className="border rounded-2xl p-5 sm:p-8 md:p-10 w-full sm:w-11/12 md:w-3/4 lg:w-1/2">
+        <h1 className="mb-8 text-2xl sm:text-3xl md:text-4xl">
+          🥄 Mix It Up — Create a Recipe!
+        </h1>
+        <form onSubmit={handleSubmit(submitHandler)}>
+          <input
+            {...register("image")}
+            type="url"
+            placeholder="Drop Image URL."
+            className="block w-full mt-5 py-3 px-4 text-base sm:text-lg md:text-xl outline-0 rounded border-b text-black font-medium"
+          />
+          <input
+            {...register("title")}
+            type="text"
+            placeholder="Recipe Title"
+            className="block w-full mt-5 py-3 px-4 text-base sm:text-lg md:text-xl outline-0 rounded-full border-b text-black font-medium"
+          />
+          <input
+            {...register("chef")}
+            type="text"
+            placeholder="Chef Name"
+            className="block w-full mt-5 py-3 px-4 text-base sm:text-lg md:text-xl outline-0 rounded-full border-b text-black font-medium"
+          />
+          <textarea
+            {...register("desc")}
+            placeholder="Description..."
+            className="block w-full mt-5 py-3 px-4 text-base sm:text-lg md:text-xl outline-0 rounded border text-black font-medium"
+          ></textarea>
+          <textarea
+            {...register("ingr")}
+            placeholder="Write ingredients separated by comma..."
+            className="block w-full mt-5 py-3 px-4 text-base sm:text-lg md:text-xl outline-0 rounded border text-black font-medium"
+          ></textarea>
+          <textarea
+            {...register("inst")}
+            placeholder="Write instructions separated by comma..."
+            className="block w-full mt-5 py-3 px-4 text-base sm:text-lg md:text-xl outline-0 rounded border text-black font-medium"
+          ></textarea>
+          <select
+            {...register("category")}
+            className="block w-full mt-5 py-3 px-4 text-base sm:text-lg md:text-xl outline-0 rounded border text-black font-medium"
+          >
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="supper">Supper</option>
+            <option value="dinner">Dinner</option>
+          </select>
+          <button className="mt-6 w-full py-3 bg-emerald-400 text-base sm:text-lg md:text-xl text-black border rounded-2xl active:scale-95 cursor-pointer">
+            Save Recipe
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

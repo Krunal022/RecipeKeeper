@@ -21,19 +21,31 @@ const SingleRecipe = () => {
       category: recipe.category,
     },
   });
-  const submitHandler = (recipe) => {
-    const index = data.findIndex((recipe) => params.id == recipe.id);
-    // console.log(index);
-    const updatedRecipe = [...data];
-    updatedRecipe[index] = { ...updatedRecipe[index], ...recipe };
-    toast.success("Recipe updated!", {
-      position: "top-right",
-      autoClose: 700,
-      transition: Flip,
-    });
-    setdata(updatedRecipe);
-    // reset();
+  const submitHandler = (recipeFormData) => {
+  const index = data.findIndex((recipe) => params.id == recipe.id);
+
+  const updatedRecipe = [...data];
+
+  // Convert form data fields to correct keys
+  updatedRecipe[index] = {
+    ...updatedRecipe[index],
+    title: recipeFormData.title,
+    image: recipeFormData.image,
+    chef: recipeFormData.chef,
+    desc: recipeFormData.desc,
+    ingredients: recipeFormData.ingr,  // <- map correctly
+    instructions: recipeFormData.inst, // <- map correctly
+    category: recipeFormData.category,
   };
+
+  setdata(updatedRecipe);
+  toast.success("Recipe updated!", {
+    position: "top-right",
+    autoClose: 700,
+    transition: Flip,
+  });
+};
+
   const DeleteHandler = () => {
     const filteredData = data.filter((recipe) => recipe.id != params.id);
     setdata(filteredData);
@@ -85,11 +97,14 @@ const SingleRecipe = () => {
             Ingredients:
           </h2>
           <ul className="list-disc list-inside text-sm">
-            {recipe.ingredients.split(",").map((item, index) => (
-              <li key={index} className="text-black">
-                {item.trim()}
-              </li>
-            ))}
+            {(recipe.ingredients || "")
+              .split(",")
+              .filter((item) => item.trim() !== "")
+              .map((item, index) => (
+                <li key={index} className="text-black">
+                  {item.trim()}
+                </li>
+              ))}
           </ul>
         </div>
 
@@ -98,11 +113,14 @@ const SingleRecipe = () => {
             Instructions:
           </h2>
           <ol className="list-decimal list-inside text-sm">
-            {recipe.instructions.split(",").map((step, index) => (
-              <li key={index} className="text-black">
-                {step.trim()}
-              </li>
-            ))}
+            {(recipe.instructions || "")
+              .split(",")
+              .filter((step) => step.trim() !== "")
+              .map((step, index) => (
+                <li key={index} className="text-black">
+                  {step.trim()}
+                </li>
+              ))}
           </ol>
         </div>
       </div>
