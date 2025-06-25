@@ -10,84 +10,84 @@ const Create = () => {
   const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm();
 
- const submitHandler = (recipe) => {
-  recipe.id = nanoid();
+  const submitHandler = (recipe) => {
+    const newRecipe = {
+      id: nanoid(),
+      title: recipe.title,
+      chef: recipe.chef,
+      desc: recipe.desc,
+      image: recipe.image,
+      ingredients: recipe.ingr,
+      instructions: recipe.inst,
+      category: recipe.category,
+    };
 
-  // Map form fields to correct object structure
-  const newRecipe = {
-    id: recipe.id,
-    title: recipe.title,
-    chef: recipe.chef,
-    desc: recipe.desc,
-    image: recipe.image,
-    ingredients: recipe.ingr, // map ingr -> ingredients
-    instructions: recipe.inst, // map inst -> instructions
-    category: recipe.category,
+    setdata([...data, newRecipe]);
+
+    toast.success("✅ New recipe added!", {
+      position: "top-right",
+      autoClose: 1000,
+      transition: Flip,
+    });
+
+    reset();
+    navigate("/recipes");
   };
 
-  setdata([...data, newRecipe]);
-
-  toast.success("New recipe created!", {
-    position: "top-right",
-    autoClose: 1000,
-    transition: Flip,
-  });
-
-  reset();
-  navigate("/recipes");
-};
-
-
   return (
-    <div className="text-black w-full min-h-screen p-4 sm:p-6 md:p-10 flex justify-center items-start">
-      <div className="border rounded-2xl p-5 sm:p-8 md:p-10 w-full sm:w-11/12 md:w-3/4 lg:w-1/2">
-        <h1 className="mb-8 text-2xl sm:text-3xl md:text-4xl">
+    <div className="w-full min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex justify-center items-start px-4 sm:px-6 md:px-10 py-10 text-white">
+      <div className="bg-gray-900 border border-gray-700 rounded-2xl p-5 sm:p-8 md:p-10 w-full sm:w-11/12 md:w-3/4 lg:w-1/2 shadow-lg">
+        <h1 className="mb-8 text-2xl sm:text-3xl md:text-4xl font-bold text-blue-400">
           🥄 Mix It Up — Create a Recipe!
         </h1>
-        <form onSubmit={handleSubmit(submitHandler)}>
+        <form onSubmit={handleSubmit(submitHandler)} className="space-y-5">
           <input
             {...register("image")}
             type="url"
-            placeholder="Drop Image URL."
-            className="block w-full mt-5 py-3 px-4 text-base sm:text-lg md:text-xl outline-0 rounded border-b text-black font-medium"
+            placeholder="Image URL"
+            className="w-full py-3 px-4 rounded border border-gray-700 bg-gray-800 text-white placeholder-gray-400 outline-none"
           />
           <input
             {...register("title")}
             type="text"
             placeholder="Recipe Title"
-            className="block w-full mt-5 py-3 px-4 text-base sm:text-lg md:text-xl outline-0 rounded-full border-b text-black font-medium"
+            className="w-full py-3 px-4 rounded-full border border-gray-700 bg-gray-800 text-white placeholder-gray-400 outline-none"
           />
           <input
             {...register("chef")}
             type="text"
             placeholder="Chef Name"
-            className="block w-full mt-5 py-3 px-4 text-base sm:text-lg md:text-xl outline-0 rounded-full border-b text-black font-medium"
+            className="w-full py-3 px-4 rounded-full border border-gray-700 bg-gray-800 text-white placeholder-gray-400 outline-none"
           />
           <textarea
             {...register("desc")}
-            placeholder="Description..."
-            className="block w-full mt-5 py-3 px-4 text-base sm:text-lg md:text-xl outline-0 rounded border text-black font-medium"
+            placeholder="Short description..."
+            className="w-full py-3 px-4 rounded border border-gray-700 bg-gray-800 text-white placeholder-gray-400 outline-none"
           ></textarea>
           <textarea
             {...register("ingr")}
-            placeholder="Write ingredients separated by comma..."
-            className="block w-full mt-5 py-3 px-4 text-base sm:text-lg md:text-xl outline-0 rounded border text-black font-medium"
+            placeholder="Ingredients (comma separated)..."
+            className="w-full py-3 px-4 rounded border border-gray-700 bg-gray-800 text-white placeholder-gray-400 outline-none"
           ></textarea>
           <textarea
             {...register("inst")}
-            placeholder="Write instructions separated by comma..."
-            className="block w-full mt-5 py-3 px-4 text-base sm:text-lg md:text-xl outline-0 rounded border text-black font-medium"
+            placeholder="Instructions (comma separated)..."
+            className="w-full py-3 px-4 rounded border border-gray-700 bg-gray-800 text-white placeholder-gray-400 outline-none"
           ></textarea>
           <select
             {...register("category")}
-            className="block w-full mt-5 py-3 px-4 text-base sm:text-lg md:text-xl outline-0 rounded border text-black font-medium"
+            className="w-full py-3 px-4 rounded border border-gray-700 bg-gray-800 text-white outline-none"
           >
+            <option value="">Select Category</option>
             <option value="breakfast">Breakfast</option>
             <option value="lunch">Lunch</option>
             <option value="supper">Supper</option>
             <option value="dinner">Dinner</option>
           </select>
-          <button className="mt-6 w-full py-3 bg-emerald-400 text-base sm:text-lg md:text-xl text-black border rounded-2xl active:scale-95 cursor-pointer">
+          <button
+            type="submit"
+            className="w-full py-3 bg-blue-500 hover:bg-blue-600 transition-all text-base text-white font-semibold rounded-2xl active:scale-95"
+          >
             Save Recipe
           </button>
         </form>
